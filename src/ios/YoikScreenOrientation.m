@@ -113,7 +113,7 @@
     if ([self.calledWith rangeOfString:@"portrait"].location != NSNotFound) {
         return UIInterfaceOrientationMaskPortrait;
     } else if([self.calledWith rangeOfString:@"landscape"].location != NSNotFound) {
-        [NSThread sleepForTimeInterval:0.050f];
+        [NSThread sleepForTimeInterval:0.150f];
         return UIInterfaceOrientationMaskLandscape;
     }
     return UIInterfaceOrientationMaskAll;
