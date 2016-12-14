@@ -26,7 +26,7 @@
 
 -(void)screenOrientation:(CDVInvokedUrlCommand *)command
 {
-    [self.commandDelegate runInBackground:^{
+//    [self.commandDelegate runInBackground:^{
 
         if(self.originalSupportedOrientations == nil) {
             self.originalSupportedOrientations = [self.viewController valueForKey:@"supportedOrientations"];
@@ -83,11 +83,11 @@
         vc.modalPresentationStyle = UIModalPresentationOverFullScreen;
 #endif
 
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
             [self.viewController presentViewController:vc animated:NO completion:nil];
-        });
+//        });
 
-    }];
+//    }];
 }
 
 @end
@@ -105,7 +105,11 @@
 	} else {
 		[presenter updateSupportedOrientations:@[[NSNumber numberWithInt:UIInterfaceOrientationLandscapeLeft], [NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight], [NSNumber numberWithInt:UIInterfaceOrientationPortrait]]];
 	}
-	[presenter dismissViewControllerAnimated:NO completion:nil];
+    
+//    if([self.calledWith rangeOfString:@"portrait"].location != NSNotFound) {
+        NSLog(@"View frame: %@", NSStringFromCGRect(self.view.frame));
+        [presenter dismissViewControllerAnimated:NO completion:nil];
+//    }
 }
 
 - (UIInterfaceOrientationMask) supportedInterfaceOrientations
@@ -113,7 +117,11 @@
     if ([self.calledWith rangeOfString:@"portrait"].location != NSNotFound) {
         return UIInterfaceOrientationMaskPortrait;
     } else if([self.calledWith rangeOfString:@"landscape"].location != NSNotFound) {
-        [NSThread sleepForTimeInterval:0.150f];
+//        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+//            [NSThread sleepForTimeInterval:0.15f];
+//        } else {
+////            [NSThread sleepForTimeInterval:0.001f];
+//        }
         return UIInterfaceOrientationMaskLandscape;
     }
     return UIInterfaceOrientationMaskAll;
